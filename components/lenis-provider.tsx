@@ -9,15 +9,15 @@ interface LenisProviderProps {
 
 export function LenisProvider({ children }: LenisProviderProps) {
   useEffect(() => {
-    // Initialize Lenis
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.6,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       smoothWheel: true,
+      wheelMultiplier: 0.8,
+      touchMultiplier: 1.5,
     })
 
-    // RAF loop for Lenis
     function raf(time: number) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -25,7 +25,6 @@ export function LenisProvider({ children }: LenisProviderProps) {
 
     requestAnimationFrame(raf)
 
-    // Cleanup
     return () => {
       lenis.destroy()
     }
